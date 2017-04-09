@@ -8,7 +8,6 @@ n=500;
 % 'x' is the x-axis and must contain n+1 values when we divide a segment in
 % n parts. For example if wr devid a segment in two parts, we need 3 values
 % on the x axis |---|---| -> *x0*---*x1*---*x2*
-
 x=zeros(1,n+1);
 % 'D' will be the Chebyshev differentiation matrix
 D=zeros(n+1,n+1);
