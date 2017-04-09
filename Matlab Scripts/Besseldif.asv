@@ -6,9 +6,7 @@ b=1;
 % divided by 500.
 n=500;
 % 'x' is the x-axis and must contain n+1 values when we divide a segment in
-% n parts. For example if wr devid a segment in two parts, we need 3 values
-% on the x axis |---|---| -> *x0*---*x1*---*x2*
-
+% n parts. For example if wr devid a segment in two parts, we need 3 
 x=zeros(1,n+1);
 % 'D' will be the Chebyshev differentiation matrix
 D=zeros(n+1,n+1);
@@ -23,8 +21,8 @@ p=100;
 %ici de 80 à 130 et nous avons donc besoin de 51 valeurs
 J=zeros(51); 
 z=zeros(51);
-% c=ones(n+1);
-% c(1)=2;
+c=ones(n+1);
+c(1)=2;
 %La boucle suivante construit la grille de Chebyshev sur l'interval [-1,1]
 for s = 1 : n+1
 x(s) = cos(pi*((s-1)/n));
