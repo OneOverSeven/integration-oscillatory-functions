@@ -13,7 +13,7 @@ x=zeros(1,n+1);
 D=zeros(n+1,n+1);
 % 'diag' will be a diagonal matrix
 diag=zeros(n+1,n+1);
-%The function f is constant, f=0.5 ont the interval [-1;1] and is represented 
+%The function f is constant, f=0.5 on the interval [-1;1] and is represented 
 %here by a simple vector.
 f=0.5*ones(n+1,1);
 % le paramètre 'p' est l'ordre de la fonction de Bessel
