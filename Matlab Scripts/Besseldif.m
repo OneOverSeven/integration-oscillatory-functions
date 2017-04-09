@@ -1,8 +1,7 @@
 function [] = Besseldif()
-%'a' and 'b' are the boundaries of the interval.
 a=-1;
 b=1;
-% 'n' is the number of intervals. Here the interval is [-1;1] and will be
+% 'n' is the number of intervals. Here the interval is [-pi;pi] and will be
 % divided by 500.
 n=500;
 % 'x' is the x-axis and must contain n+1 values when we divide a segment in
@@ -13,21 +12,26 @@ x=zeros(1,n+1);
 D=zeros(n+1,n+1);
 % 'diag' will be a diagonal matrix
 diag=zeros(n+1,n+1);
-%The function f is constant, f=0.5 on the interval [-1;1] and is represented 
-%here by a simple vector.
+%The function f is constant, f=0.5 on the interval [-1;1] and is 
+%represented here by a simple vector.
 f=0.5*ones(n+1,1);
-% le paramètre 'p' est l'ordre de la fonction de Bessel
-p=100;
-%'J' est le vecteur contenant les valeurs de la fonction de bessel,
-%ici de 80 à 130 et nous avons donc besoin de 51 valeurs
-J=zeros(51); 
-z=zeros(51);
-% c=ones(n+1);
-% c(1)=2;
-%La boucle suivante construit la grille de Chebyshev sur l'interval [-1,1]
-for s = 1 : n+1
-x(s) = cos(pi*((s-1)/n));
+% 'h' is the order of the Bessel function
+h=100;
+% and we compute the Bessel function from z1=80 to z2=130
+z1=80;
+z2=130;
+% 'm' divide the interval on which we compute the Bessel function
+m=200;
+%'J' is a vector that contain the values of the Bessel function
+J=zeros(m+1);
+%The following loop construct the Chebyshev nodes/grid (or Gauss-Lobatto 
+%nodes) on the interval [a,b] 
+%see https://en.wikipedia.org/wiki/Chebyshev_nodes
+%and https://en.wikipedia.org/wiki/Chebyshev_polynomials#Roots_and_extrema
+for s = 0:n
+x(s+1) = ((b-a)/2)*cos((s/n)*pi)+((b+a)/2);
 end
+
 %The following two loops consstruct the Chebychev differentiation matrix
 % represented by 'D'
 for j = 1:n-1
@@ -51,21 +55,25 @@ D(1,n+1)=0.5*((-1).^n);
 D(n+1,1)=-0.5*((-1).^n);
 %The following loop construct the diagonal matrix with the values of the 
 %derivative of the function g, i.e. g'=d/dx (g).
-for y=1:51
-yy=y+79;
+
+for k=0:m
+z=z1+((k/m)*(z2-z1));
     for l=0:n
-        diag(l+1,l+1)=pi*((yy*cos(pi*x(l+1)))-p);
+        diag(l+1,l+1)=pi*((z*cos(pi*x(l+1)))-h);
     end
     %'B' is a matrix
     B=(D+(1i*diag));
-    % 'f' is the vector that represent the function f and has been set at the
-    % beginning of this script.
+    % 'f' is the vector that represent the function f and has been set at 
+    % the beginning of this script.
     % 'B\f' is used instead of 'inv(B)*f' as suggested by Matlab
     P=(B\f);
-    J(y)=real((P(1)*exp(1i*(-p*pi)))-(P(n+1)*exp(1i*(p*pi))));
+    J(k+1)=real( (P(1)*exp(-1i*h*pi))-(P(n+1)*exp(1i*((h*pi)))) );
 end
-for kk=1:51
-   z(kk)=kk;
-end
-plot(z+79,J)
-%adding comment
+
+w=80:((z2-z1)/m):130;
+plot(w,J)
+title('The Bessel function of order 100');
+xlabel('z');
+ylabel('B_{100}(z)');
+grid on
+
