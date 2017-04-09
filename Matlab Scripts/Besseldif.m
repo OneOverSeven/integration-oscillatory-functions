@@ -53,7 +53,6 @@ D(n+1,1)=-0.5*((-1).^n);
 %derivative of the function g, i.e. g'=d/dx (g).
 for y=1:51
 yy=y+79;
-P=zeros(n+1,1);
     for l=0:n
         diag(l+1,l+1)=pi*((yy*cos(pi*x(l+1)))-p);
     end
@@ -61,7 +60,7 @@ P=zeros(n+1,1);
     B=(D+(1i*diag));
     % 'f' is the vector that represent the function f and has been set at the
     % beginning of this script.
-    % ''
+    % 'B\f' is used instead of 'inv(B)*f' as suggested by Matlab
     P=(B\f);
     J(y)=real((P(1)*exp(1i*(-p*pi)))-(P(n+1)*exp(1i*(p*pi))));
 end
