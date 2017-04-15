@@ -6,14 +6,14 @@ U=20;
 alpha=2*I;
 
 a=0;
-b=8*pi;
+b=25;
 n=2000;
 t=zeros(1,n+1);
 D=zeros(n+1,n+1);
 diag=zeros(n+1,n+1);
 lambda=(b-a)/2;
 vecf=zeros(n+1,1);
-x=zeros(100); %le vecteur contenant les valeurs de la fonction de besselici de 80 à 130
+x=zeros(44); %le vecteur contenant les valeurs de la fonction de besselici de 80 à 130
 
 for s = 1 : n+1
 t(s) = lambda*cos(pi*((s-1)/n)) + (b+a)/2;
@@ -38,7 +38,7 @@ D(n+1,n+1)=-(1+(2*(n.^2)))/6;
 D(1,n+1)=0.5*((-1).^n);
 D(n+1,1)=-0.5*((-1).^n);
 
-for K=5:50
+for K=5:48
 %P=zeros(n+1,1);
     for l=0:n
         diag(l+1,l+1)=gprim(I, K, U, alpha, t(l+1));
@@ -46,9 +46,14 @@ for K=5:50
     end
     B=(D+(1i*lambda*diag));
     P=(B\(lambda*vecf));
-    x(K)=norm((sqrt(1))*((P(1)*exp(-1i*(g(I, K, U, alpha, b))))-(P(n+1)*exp(-1i*(g(I, K, U, alpha, a))))));
+    x(K-4)=norm((sqrt(1))*((P(1)*exp(-1i*(g(I, K, U, alpha, b))))-(P(n+1)*exp(-1i*(g(I, K, U, alpha, a)))))).^2;
 end
-semilogy(1:100, x,'-ko','LineWidth',2,...
+zz=zeros(44);
+for l=1:44
+    zz(l)=2*(l+4)+1;
+end
+plot(zz, log10(x),'-ko','LineWidth',2,...
                 'MarkerEdgeColor','k',...
                 'MarkerFaceColor','g',...
                 'MarkerSize',7)
+grid on;

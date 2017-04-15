@@ -1,7 +1,7 @@
 function [] = ex2dif()
 
-n=35;
-x=zeros(1,n+1);
+n=40;
+x=zeros(n+1);
 D=zeros(n+1,n+1);
 diag=zeros(n+1,n+1);
 f=zeros(n+1,1);
@@ -29,15 +29,14 @@ D(n+1,n+1)=-(1+(2*(n.^2)))/6;
 D(1,n+1)=0.5*((-1).^n);
 D(n+1,1)=-0.5*((-1).^n);
 
-
-for l=0:n
-    diag(l+1,l+1)=((2*x(l+1))+4);
-    f(l+1)=0.5*sin(0.5*(x(l+1)+1));
+for q=1:n+1
+    diag(q,q)=0.5*((x(q))+2);
+    f(q,1)=0.5*sin(0.5*(x(l+1)+1));
 end
 
 B=(D+(1i*diag));
+% P=(B\f);
 [L,U] = lu(B);
 P=(U\L\f);
-result=((P(1)*exp(1i*1000))-P(n+1));
-
+result=((P(1)*exp(125i*8))-P(n+1));
 result

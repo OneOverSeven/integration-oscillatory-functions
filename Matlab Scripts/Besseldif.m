@@ -3,7 +3,7 @@ a=-1;
 b=1;
 % 'n' is the number of intervals. Here the interval is [-pi;pi] and will be
 % divided by 500.
-n=500;
+n=1000;
 % 'x' is the x-axis and must contain n+1 values when we divide a segment in
 % n parts. For example if wr devid a segment in two parts, we need 3 values
 % on the x axis |---|---| -> *x0*---*x1*---*x2*
@@ -67,6 +67,8 @@ z=z1+((k/m)*(z2-z1));
     % the beginning of this script.
     % 'B\f' is used instead of 'inv(B)*f' as suggested by Matlab
     P=(B\f);
+%     [L,U] = lu(B);
+%     P=(U\L\f);
     J(k+1)=real( (P(1)*exp(-1i*h*pi))-(P(n+1)*exp(1i*((h*pi)))) );
 end
 
