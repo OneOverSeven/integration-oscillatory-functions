@@ -3,7 +3,7 @@ T=zeros(n+1,n+1);
 x=zeros(n+1);
 
 for s = 1 : n+1
-    x(s) = -1+2*(s-1/n);
+    x(s) = cos(pi*(s-1/(n)));
 end
 
 for i = 0:n

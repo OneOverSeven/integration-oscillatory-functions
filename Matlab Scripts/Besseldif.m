@@ -3,7 +3,7 @@ a=-1;
 b=1;
 % 'n' is the number of intervals. Here the interval is [-pi;pi] and will be
 % divided by 500.
-n=1000;
+n=500;
 % 'x' is the x-axis and must contain n+1 values when we divide a segment in
 % n parts. For example if wr devid a segment in two parts, we need 3 values
 % on the x axis |---|---| -> *x0*---*x1*---*x2*
