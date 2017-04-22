@@ -7,7 +7,7 @@ x=0:1:100;
 y1=zeros(length(x));
 y2=zeros(length(x));
   
-for K=5:48
+for K=10:30:310
 for k=0:length(x)-1
      y1(k+1)=real(FK(I,U,K,2*I,k/length(x)));
      y2(k+1)=imag(FK(I,U,K,2*I,k/length(x)));
