@@ -8,6 +8,6 @@ end
 
 for i = 0:n
     for j = 0:n
-        T(i+1,j+1) = mfun('T',j,x(j+1));
+        T(i+1,j+1) = mfun('T',i,x(j+1));
     end
 end
