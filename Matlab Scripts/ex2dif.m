@@ -1,6 +1,6 @@
 function [] = ex2dif()
 
-n=50;
+n=1000;
 x=zeros(n+1,1);
 %D=zeros(n+1,n+1);
 diag=zeros(n+1,n+1);

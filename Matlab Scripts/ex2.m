@@ -69,5 +69,5 @@ B=((T*A)+(1i*(diago*T)));
 a=(U\(L\f));
 P=T*a;
 
-result=(P(1)-P(n+1)*exp(1i*500));
+result=(P(1)-P(n+1)*exp(1i*1000));
 result
