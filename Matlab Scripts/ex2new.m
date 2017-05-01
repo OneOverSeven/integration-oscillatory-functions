@@ -1,5 +1,5 @@
 function [] = ex2new()
-n=350;
+n=500;
 
 x=zeros(n+1,1);
 x2=zeros(2*(n+1),1);
@@ -20,7 +20,7 @@ vec_temp2=zeros(n+1,1);
 omega=500;
 
 indice1=zeros(n+1,n+1);
-indice2=zeros(2*(n+1),2*(n+1));
+indice2=zeros((2*n)+1,(2*n)+1);
 
 D=zeros(n+1,n+1);
 S=0.5*eye(n+1,n+1);
@@ -32,7 +32,7 @@ vec_f=zeros(n+1,1);
 
 func_a=@(x) 1i*omega*(x+2)/2;
 func_f=@(x) sin((x+1)/2)/2;
-func_g=@(x) (x.^2+4*x+3)/4;
+func_g=@(x) ((x.^2)+4*x+3)/4;
 
 
 
@@ -76,37 +76,40 @@ end
 % a = chebcoeffs(p)
 % a(1)
 y = chebfun('y');
-p1 = chebfun(1i*omega*(y+2)/2,'trunc',2*(n+1));
+p1 = chebfun(1i*omega*(y+2)/2,'trunc',(2*n)+1);
 p2 = chebfun(sin((y+1)/2)/2,'trunc',n+1);
 veca = chebcoeffs(p1);
 vecf = chebcoeffs(p2);
 
 veca(1,1)=2*veca(1,1);
-veca(2*(n+1),1)=2*veca(2*(n+1),1);
+veca((2*n)+1,1)=2*veca((2*n)+1,1);
 
 for i = 1 : n+1
     for j = 1 : n+1
    indice1(i,j)=abs(j-i);
-   indice2(i,j)=i+j-2;
+   %indice2(i,j)=i+j-2;
     end
-    indice2(1,i)=0;
+    %indice2(1,i)=0;
 end
 
 
-for i = 1 : 2*(n+1)
-    for j = 1 : 2*(n+1)
-   indice2(i,j)=i+j-2;
+for i = 1 : (2*n)+1
+    for j = 1 : (2*n)+1
+   indice2(i,j)=i+j-1;
     end
     indice2(1,i)=0;
 end
 
 indice1=indice1+ones(n+1,n+1);
 
-
 for i = 1 : n+1
     for j = 1 : n+1
     M1(i,j)=veca(indice1(i,j),1);
     end
+end
+
+for k=1:n+1
+   M1(k,k)=2*M1(k,k);
 end
 
 for i = 2 : n+1
@@ -122,7 +125,7 @@ for i = 1 : n-1
 end
 
 S(1,1)=1;
-
+S
 
 for i = 1 : n
     D(i,i+1)=i;
@@ -157,7 +160,7 @@ u3=(UUU\(L\(S*vecf)));
 % 
 % ua=sum(vua)
 
-result_inv_normal=(u(1)*exp(1i*omega*func_g(1))-u(n+1)*exp(1i*omega*func_g(-1)))
+result_inv_normal=(u(1)*exp(1i*omega*func_g(-1))-u(n+1)*exp(1i*omega*func_g(1)))
 result_SVD=(u2(1)*exp(1i*omega*func_g(1))-u2(n+1)*exp(1i*omega*func_g(-1)))
 result_LU=(u3(1)*exp(1i*omega*func_g(1))-u3(n+1)*exp(1i*omega*func_g(-1)))
 
